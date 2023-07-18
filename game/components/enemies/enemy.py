@@ -7,7 +7,7 @@ from game.components.bullets.bullet import Bullet
 class Enemy(Sprite):
     Y_POS = 20
     SPEED_X = randint(5, 10)
-    SPEED_Y = randint(1, 10)
+    SPEED_Y = randint(1, 5)
     MOV_X = {0: 'left', 1: 'right'}
     def __init__(self):
         self.image = ENEMIES[randint(0, 2)]

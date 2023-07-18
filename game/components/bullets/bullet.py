@@ -15,7 +15,10 @@ class Bullet(Sprite):
         self.owner = spaceship.type
 
     def update(self, bullets):
-        self.rect.y += self.SPEED
+        if self.owner == 'enemy':
+            self.rect.y += self.SPEED
+        else:
+            self.rect.y -= self.SPEED
         if self.rect.y >= SCREEN_HEIGHT:
             bullets.remove(self)
 

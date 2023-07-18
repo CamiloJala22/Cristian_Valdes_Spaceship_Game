@@ -1,4 +1,5 @@
 import pygame
+from game.components.enemies.enemy import Enemy
 
 class BulletManager:
     def __init__(self):
@@ -13,11 +14,24 @@ class BulletManager:
                 game.playing = False
                 pygame.time.delay(1000)
                 break
-
+                    
+        for bullet in self.bullets:
+            bullet.update(self.bullets)
+            for enemy in game.enemy_manager.enemies:
+                if bullet.rect.colliderect(enemy.rect) and bullet.owner == 'player':
+                    self.bullets.remove(bullet)
+                    game.enemy_manager.enemies.remove(enemy)
+                    break
+        
     def draw(self, screen):
         for bullet in self.enemy_bullets:
+            bullet.draw(screen)
+        for bullet in self.bullets:
             bullet.draw(screen)
     
     def add_bullet(self, bullet):
         if bullet.owner == 'enemy' and len(self.enemy_bullets) < 1:
             self.enemy_bullets.append(bullet)
+
+        if bullet.owner == 'player':
+            self.bullets.append(bullet)
