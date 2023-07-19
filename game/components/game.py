@@ -1,6 +1,6 @@
 import pygame
 
-from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, ICON, FONT_STYLE
+from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, ICON, FONT_STYLE, SCREEN_CENTER_H
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
@@ -24,6 +24,7 @@ class Game:
         self.menu = Menu('Press any key to start ...', self.screen)
         self.score = 0
         self.death_count = 0
+        self.high_score = []
 
     def execute(self):
         self.running = True
@@ -79,7 +80,14 @@ class Game:
         if self.death_count == 0:
             self.menu.draw(self.screen)
         else:
-            self.menu.update_message("New message")
+            
+            self.menu.update_message("Game Over")
+            self.menu.draw(self.screen)
+            self.menu.update_message(f"Score: {self.score_screen}", SCREEN_CENTER_H + 40)
+            self.menu.draw(self.screen)
+            self.menu.update_message(f"High Score: {self.high_score_screen}", SCREEN_CENTER_H + 80)
+            self.menu.draw(self.screen)
+            self.menu.update_message(f"Deaths: {self.death_count}", SCREEN_CENTER_H + 120)
             self.menu.draw(self.screen)
 
         icon = self.image = pygame.transform.scale(ICON, (80, 120))
@@ -87,8 +95,14 @@ class Game:
         self.menu.update(self)
 
     def draw_score(self):
+        self.score_screen = self.score
+        self.high_score.append(self.score_screen)
+        self.high_score_screen = max(self.high_score)
+        if self.playing == False:
+            self.score = 0
         font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render(f'Score: {self.score}', True, (255,255,255))
+        text = font.render(f'Score: {self.score_screen}', True, (255,255,255))
         text_rect = text.get_rect()
         text_rect.center = (1000, 50)
         self.screen.blit(text, text_rect)
+

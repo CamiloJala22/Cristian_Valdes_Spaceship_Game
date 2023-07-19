@@ -1,5 +1,5 @@
 import pygame
-from game.utils.constants import FONT_STYLE, SCREEN_WIDTH, SCREEN_HEIGHT
+from game.utils.constants import FONT_STYLE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_CENTER_H, SCREEN_CENTER_W
 
 class Menu:
     def __init__(self, message, screen):
@@ -7,7 +7,7 @@ class Menu:
         self.font = pygame.font.Font(FONT_STYLE, 30)
         self.text = self.font.render(message, True, (0, 0, 0))
         self.text_rect = self.text.get_rect()
-        self.text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        self.text_rect.center = (SCREEN_CENTER_W, SCREEN_CENTER_H)
 
     def update(self, game):
         pygame.display.update()
@@ -27,7 +27,7 @@ class Menu:
     def reset_screen_color(self, screen):
         screen.fill((255, 255, 255))
 
-    def update_message(self, message):
+    def update_message(self, message, screen_center_h = SCREEN_CENTER_H ):
         self.text = self.font.render(message, True, (0, 0, 0))
         self.text_rect = self.text.get_rect()
-        self.text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        self.text_rect.center = (SCREEN_CENTER_W, screen_center_h)
