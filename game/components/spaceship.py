@@ -62,3 +62,7 @@ class Spaceship(Sprite):
     def set_image(self, size = (40, 60), image = SPACESHIP):
         self.image = image
         self.image = pygame.transform.scale(self.image, size)
+
+    def reset(self):
+        self.rect.x = self.X_POS
+        self.rect.y = self.Y_POS

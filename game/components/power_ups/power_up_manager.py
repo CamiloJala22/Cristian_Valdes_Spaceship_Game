@@ -21,7 +21,7 @@ class PowerUpManager:
 
         for power_up in self.power_ups:
             power_up.update(game.game_speed, self.power_ups)
-            if game.player.rect.collidedict(power_up):
+            if game.player.rect.colliderect(power_up):
                 power_up.start_time = pygame.time.get_ticks()
                 game.player.power_up_type = power_up.type
                 game.player.has_power_up = True
